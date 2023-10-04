@@ -4,16 +4,19 @@ from sqlalchemy_serializer import SerializerMixin
 
 metadata = MetaData()
 
-db = SQLAlchemy(metadata=metadata)
+db = SQLAlchemy()
 
 # Add models here
-class Earthquake(db.Model, SerializerMixin):
-    __tablename__ = "earthquakes"
+class Production(db.Model, SerializerMixin):
+    __tablename__ = "productions"
 
     id = db.Column(db.Integer, primary_key=True)
-    magnitude = db.Column(db.Float)
-    location = db.Column(db.String)
-    year = db.Column(db.Integer)
+    title = db.Column(db.String)
+    genre = db.Column(db.String)
+    budget = db.Column(db.Integer)
+    director = db.Column(db.Integer)
+    description = db.Column(db.String)
+    ongoing = db.Column(db.Boolean)
 
     def __repr__(self):
-        return f"<Earthquake {self.id}, {self.magnitude}, {self.location}, {self.year}>"
+        return f"<Production {self.id}, {self.title}, {self.genre}, {self.budget}, {self.director}, {self.description}, {self.ongoing}>"
