@@ -11,7 +11,7 @@ class Production(db.Model, SerializerMixin):
     __tablename__ = "productions"
 
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String)
+    title = db.Column(db.String, unique=True)
     genre = db.Column(db.String)
     budget = db.Column(db.Integer)
     director = db.Column(db.Integer)

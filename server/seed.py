@@ -3,18 +3,27 @@
 
 from app import app
 from models import db, Production
+from faker import Faker
+from random import choice as rc
 
+# Creat application context 
 with app.app_context():
 
-    # Delete all rows in the "earthquakes" table
+    fake=Faker()
+
+    # Delete all rows in the "productions" table
     Production.query.delete()
 
-    # Add several Earthquake instances to the "earthquakes" table
-    # db.session.add(Earthquake(magnitude=9.5, location="Chile", year=1960))
-    # db.session.add(Earthquake(magnitude=9.2, location="Alaska", year=1964))
-    # db.session.add(Earthquake(magnitude=8.6, location="Alaska", year=1946))
-    # db.session.add(Earthquake(magnitude=8.5, location="Banda Sea", year=1934))
-    # db.session.add(Earthquake(magnitude=8.4, location="Chile", year=1922))
+    # Add several Production instances to the "productions" table
+    productions = []
+    genres = ["Scary", "SciFi", "Comedy", "Action", "Thriller", "Rom-Com", "Drama"]
 
-    # Commit the transaction
+    for n in range(20):
+        prod = Production(title=fake.cryptocurrency_name(), genre=rc(genres), budget=fake.random_number(), director = fake.name(), description = fake.catch_phrase(), ongoing=fake.boolean())
+
+        productions.append(prod)
+
+    # Add all the production instances
+    db.session.add_all(productions)
+    # # Commit the transaction
     db.session.commit()
